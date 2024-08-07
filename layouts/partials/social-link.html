@@ -9,8 +9,9 @@ If a scheme exists then we will just include the full URL as it is, otherwise
 we will take the prefix passed in and concatenate them together for backwards
 compatability
 -->
+{{ $isMastodon := strings.Contains .context "mastodon" }}
 {{ if gt (len (urls.Parse .context).Scheme) 0 }}
-  <a class="{{ .aclass }}" href = "{{ .context }}"><i class="{{ .iclass }}"></i>{{ .text }}</a>
+  <a class="{{ .aclass }}" href="{{ .context }}" {{ if $isMastodon }}rel="me"{{ end }}><i class="{{ .iclass }}"></i>{{ .text }}</a>
 {{ else }}
-  <a class="{{ .aclass }}" href = "{{ .prefix }}{{ .context }}"><i class="{{ .iclass }}"></i>{{ .text }}</a>
+  <a class="{{ .aclass }}" href="{{ .prefix }}{{ .context }}" {{ if $isMastodon }}rel="me"{{ end }}><i class="{{ .iclass }}"></i>{{ .text }}</a>
 {{ end }}
